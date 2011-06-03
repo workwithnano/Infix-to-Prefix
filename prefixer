@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'benchmark'
+require 'prefix'
+
+ARGV.each do |arg|
+  
+  # Check for flags
+  case arg
+    when "-r","--reduce"
+      @reduce = true
+    when "-v","--verbose"
+      @verbose = true
+    else
+      @expression_file = arg
+  end
+  
+end
+
+if @expression_file.nil?
+  puts "Usage: prefixer FILE_NAME [-rv] [--reduce] [--verbose]"
+  exit
+end
+
+# Get the infix expression from the first line of the file
+infix_expression = File.open(@expression_file, &:readline).chomp
+prefix = Prefixer.new(infix_expression,@reduce,@verbose)
+
+# To benchmark, remove comment below and comment out 2nd line
+puts Benchmark.measure { prefix.convert }
+# puts prefix.convert
