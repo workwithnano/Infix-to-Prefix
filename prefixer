@@ -27,5 +27,5 @@ infix_expression = File.open(@expression_file, &:readline).chomp
 prefix = Prefixer.new(infix_expression,@reduce,@verbose)
 
 # To benchmark, remove comment below and comment out 2nd line
-puts Benchmark.measure { prefix.convert }
-# puts prefix.convert
+# puts Benchmark.measure { prefix.convert }
+puts prefix.convert
